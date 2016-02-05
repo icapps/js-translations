@@ -1,8 +1,9 @@
 import fetch from 'node-fetch';
 
 module.exports = class TranslationsApi {
-  constructor(apiToken) {
+  constructor(apiToken, logger) {
     this.apiToken = apiToken;
+    this.logger   = logger;
 
     this.defaultOptions = {
       headers: {
@@ -17,32 +18,34 @@ module.exports = class TranslationsApi {
   * @return LanguagesPromise {array:promise}
   */
   getLanguages() {
-    const dummy = [ { id: 14, short_name: 'fr-be' },{ id: 13, short_name: 'nl-be' } ];
-    return Promise.resolve(dummy);
+    // const dummy = [ { id: 14, short_name: 'fr-be' },{ id: 13, short_name: 'nl-be' } ];
+    // return Promise.resolve(dummy);
 
     let url = 'http://translations-test.icapps.com/api/languages.json';
+    this.logger.log(`get languages from ${url}`);
 
     return fetch(url, this.defaultOptions)
       .then((res) => {
         return res.json();
       })
       .catch((err) => {
-        console.log('catch error', err);
+        this.logger.log('catch error', err);
       });
   }
 
   getTranslation(shortName) {
-    const dummy = '{"translations":[{"title_main":"Bonjour"}]}';
-    return Promise.resolve(dummy)
+    // const dummy = '{"translations":[{"title_main":"Bonjour"}]}';
+    // return Promise.resolve(dummy)
 
-    // let url = `http://translations-test.icapps.com/api/translations/${shortName}.json`;
-    // console.log(url);
-    // return fetch(url, this.defaultOptions)
-    // .then((result) => {
-    //   return result.json();
-    // })
+    let url = `http://translations-test.icapps.com/api/translations/${shortName}.json`;
+
+    this.logger.log(`fetch translation from ${url}`)
+
+    return fetch(url, this.defaultOptions)
+    .then((result) => {
+      return result.json();
+    })
     .then((body) => {
-      console.log('body', body);
       return {
         name: shortName,
         body: body
