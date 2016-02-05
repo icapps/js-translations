@@ -15,7 +15,7 @@ const DEFAULT_OPTIONS = {
   verbose: false
 };
 
-module.exports = function importTranslations(apiToken, customOptions = {}) {
+export function importTranslations(apiToken, customOptions = {}) {
   const options = _.defaults(customOptions, DEFAULT_OPTIONS);
   const logger  = new Logger(options.verbose);
   const api     = new TranslationsApi(apiToken, logger);

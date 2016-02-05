@@ -4,10 +4,10 @@ import { defaults, pick, isUndefined } from 'lodash'
 import inquirer from 'inquirer';
 import mkdirp from 'mkdirp';
 
-import sample from './config/translations.sample';
+import sample from './translations.sample';
 
 
-export default function init() {
+export function initTranslations() {
 
   let questions = [
     {
