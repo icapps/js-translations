@@ -1,6 +1,9 @@
 #!/usr/bin/env node
-const app = require('./src/index');
 
-let action = process.argv[1]
-console.log(action);
-// app(action);
+var program = require('commander');
+
+program
+  .version('0.0.1')
+  .command('init [name]', 'add ')
+  .command('import [token]', 'search with optional query')
+  .parse(process.argv);
