@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var program            = require('commander');
-var importTranslations = require('./../lib/import-translations');
+var importTranslations = require('./../lib').import;
 
 program
   .version('0.0.1')
