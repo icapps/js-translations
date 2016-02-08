@@ -7,12 +7,12 @@ import mkdirp from 'mkdirp';
 import sample from './translations.sample';
 
 
-export function initTranslations() {
+export default function initTranslations() {
 
   let questions = [
     {
       name: 'configPath',
-      message: 'Where do you store your configuration?',
+      message: 'Where should the configuration go?',
       default: './src/config/',
     },
     {
@@ -33,15 +33,14 @@ export function initTranslations() {
 
 function createConfigurationFile(configurationPath) {
   mkdirp(configurationPath, (err) => {
-    if (err) {
-      console.log(err);
-    }
+    if (err) console.log(err)
+
   });
 
   let questions = [
     {
       name: 'translationsPath',
-      message: 'Where should translations.json go?',
+      message: 'Where should the locales go? (e.g. nl-be.json)',
       default: './src/locales/',
     },
     {
@@ -52,7 +51,7 @@ function createConfigurationFile(configurationPath) {
     },
     {
       name: 'apiToken',
-      message: 'Give us your api token.',
+      message: 'Please provide your API token for translations.icapps.be:',
       default: null,
       when: answers => answers.hasApiToken
     },
