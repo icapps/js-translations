@@ -4,8 +4,9 @@ var initTranslations = require('./../lib').init;
 
 program
   .version('0.0.1')
-  .option('-t, --token [value]', 'Add apiToken')
-  .option('-p, --translations-path', 'Add translations path')
+  .option('--token [value]', 'Add apiToken')
+  .option('--translations-path', 'Add translations path')
+  .option('--verbose', 'get more detailed information on what is happening')
   .parse(process.argv);
 
 console.log('you created a configuration file with:');
@@ -14,7 +15,6 @@ if (program.translationsPath) console.log(`translations path: ${program.translat
 
 return initTranslations(
   {
-    token: program.token,
-    translationsPath: program.translationsPath,
+    verbose: program.verbose,
   }
 );
