@@ -22,9 +22,10 @@ export default function initTranslations(customOptions = {}) {
   askConfigurationPath()
   .then(function(configPath){
     return createConfigurationFile(configPath);
-  });.then(function(fullPath){
+  })
+  .then(function(fullPath){
     logger.log(`Created configation file: ${fullPath}`);
-    // return checkGitignore();
+    return checkGitignore();
   });
 }
 
