@@ -1,9 +1,10 @@
 import fetch from 'node-fetch';
 
 module.exports = class TranslationsApi {
-  constructor(apiToken, logger) {
+  constructor(apiUrl, apiToken, logger) {
+    this.apiUrl = apiUrl;
     this.apiToken = apiToken;
-    this.logger   = logger;
+    this.logger = logger;
 
     this.defaultOptions = {
       headers: {
@@ -21,7 +22,7 @@ module.exports = class TranslationsApi {
     // const dummy = [ { id: 14, short_name: 'fr-be' },{ id: 13, short_name: 'nl-be' } ];
     // return Promise.resolve(dummy);
 
-    let url = 'http://translations-test.icapps.com/api/languages.json';
+    let url = `${this.apiUrl}/languages.json`;
     this.logger.log(`get languages from ${url}`);
 
     return fetch(url, this.defaultOptions)
@@ -37,7 +38,7 @@ module.exports = class TranslationsApi {
     // const dummy = '{"translations":[{"title_main":"Bonjour"}]}';
     // return Promise.resolve(dummy)
 
-    let url = `http://translations-test.icapps.com/api/translations/${shortName}.json`;
+    let url = `${this.apiUrl}/translations/${shortName}.json`;
 
     this.logger.log(`fetch translation from ${url}`)
 

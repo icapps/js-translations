@@ -8,17 +8,16 @@ import TranslationsApi from './translations-api';
 import Logger from './logger';
 
 
-
 const DEFAULT_OPTIONS = {
   destination: './src/locales',
   clean: false,
   verbose: false
 };
 
-export default function importTranslations(apiToken, customOptions = {}) {
+export default function importTranslations(apiUrl, apiToken, customOptions = {}) {
   const options = _.defaults(customOptions, DEFAULT_OPTIONS);
   const logger  = new Logger(options.verbose);
-  const api     = new TranslationsApi(apiToken, logger);
+  const api     = new TranslationsApi(apiUrl, apiToken, logger);
 
   return createDestination(options.destination)
   .then(() => {

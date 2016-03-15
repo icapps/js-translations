@@ -5,6 +5,7 @@ var exec               = require('child_process').exec;
 // Import translations
 gulp.task('translations:import', function(cb) {
   return importTranslations(
+    'http://localhost:3000',
     'XXXXXXXXXXXXXXXXXXXXXX',
     {
       clean: true,
