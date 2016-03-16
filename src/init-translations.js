@@ -5,7 +5,7 @@ import { defaults, pick, isUndefined } from 'lodash'
 import inquirer from 'inquirer';
 import mkdirp from 'mkdirp';
 
-import Logger from './logger';
+import Logger from './Logger';
 import sample from './translations.sample';
 
 const DEFAULT_OPTIONS = {

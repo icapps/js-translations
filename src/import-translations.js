@@ -5,13 +5,15 @@ import mkdirp from 'mkdirp';
 import path from 'path';
 
 import TranslationsApi from './translations-api';
-import Logger from './logger';
+import prettifyJSON from './utils/prettifyJSON';
+import Logger from './Logger';
 
 
 const DEFAULT_OPTIONS = {
   destination: './src/locales',
   clean: false,
-  verbose: false
+  verbose: false,
+  seperateCategories: false,
 };
 
 export default function importTranslations(apiUrl, apiToken, customOptions = {}) {
@@ -20,12 +22,10 @@ export default function importTranslations(apiUrl, apiToken, customOptions = {})
   const api     = new TranslationsApi(apiUrl, apiToken, logger);
 
   return createDestination(options.destination)
-  .then(() => {
-    return cleanDestination(options.clean, options.destination);
-  })
-  .then(() => {
-    return api.getLanguages();
-  })
+  .then(() => cleanDestination(options.clean, options.destination))
+
+  .then(() => api.getLanguages())
+
   .then((languages) => {
     // get for every language the translation
     return languages.map((language) => {
@@ -33,44 +33,73 @@ export default function importTranslations(apiUrl, apiToken, customOptions = {})
       return api.getTranslation(language.short_name);
     });
   })
+
+  // continue when all languages resolve
   .then((allTranslations) => {
-    // continue when all languages resolve
     return Promise.all(allTranslations);
   })
-  .then((translations) => {
-    return saveTranslations(translations, options.destination);
+
+  .then((translationsResponse) => {
+    return saveTranslations(
+      translationsResponse,
+      options.destination,
+      options.seperateCategories
+    );
   })
+
   .then(function() {
     logger.log('translations imported');
   });
 };
 
 
-function saveTranslations(translations, destination) {
-  let promises = translations.map((translation) => {
-    let fileName = path.join(destination, `${translation.name}.json`);
-    let fileContents = JSON.stringify(translation.body.translations, null, 4)
-
-    fs.writeFile(fileName, fileContents, (err) => {
-      if (err) console.error(err)
-    });
+function saveTranslations(translationsResponse, destination, seperateCategories) {
+  translationsResponse.forEach((translation) => {
+    if (seperateCategories) {
+      saveTranslationWithCategories(translation, destination);
+    } else {
+      saveTranslation(translation, destination)
+    }
   });
 
-  return Promise.resolve();
-
+  return Promise.resolve()
 };
 
 
+function saveTranslation(translation, destination) {
+  let fileName = path.join(destination, `${translation.name}.json`);
+  let fileContents = prettifyJSON(translation.body.translations);
+
+  fs.writeFile(fileName, fileContents, (err) => {
+    if (err) console.error(err)
+  });
+}
+
+
+function saveTranslationWithCategories(translation, destination) {
+  const categories = Object.keys(translation.body.translations);
+
+  categories.forEach((category) => {
+    createDestination(path.join(destination, category))
+    .then(() => {
+      let fileName = path.join(destination, category, `${translation.name}.json`);
+      let fileContents = prettifyJSON(translation.body.translations[category]);
+
+      fs.writeFile(fileName, fileContents, (err) => {
+        if (err) console.error(err)
+      });
+    });
+  });
+}
+
+
 function cleanDestination(should, destination) {
+  console.log('SHOULD', should)
+  console.log('DESTINATION', destination)
   if (should) {
-    console.log('inside clean destination', path.join(destination, '*'));
-    return del(path.join(destination, '*'))
-      // .then((paths) => {
-      //   // logger.log('\Deleted files and folders:\n', paths.join('\n'));
-      // });
-  } else {
-    return Promise.resolve();
+    return del(path.join(destination, '*'));
   }
+  return Promise.resolve();
 };
 
 

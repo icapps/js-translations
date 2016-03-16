@@ -10,6 +10,7 @@ gulp.task('translations:import', function(cb) {
     {
       clean: true,
       verbose: true,
+      seperateCategories: true
     }
   );
 });
