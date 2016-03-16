@@ -2,10 +2,14 @@
 var program            = require('commander');
 var importTranslations = require('./../lib').import;
 
+const defaults = {
+  apiUrl: 'http://translations.icapps.com/api'
+}
+
 program
   .version('0.0.1')
   .option('-t, --token [value]', 'apiToken authentication token')
-  .option('--api-url [value]', 'api url e.g. \'http://server/api\'')
+  .option('--api-url [value]', `api url to fetch translations from.  Default: ${defaults.apiUrl}`, defaults.apiUrl)
   .option('--seperate-categories', 'seperate translations in categories')
   .option('--destination [value]', 'translations destionation path')
   .option('--clean', 'clean import, delete all translations before writing new')

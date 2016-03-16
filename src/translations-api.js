@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-module.exports = class TranslationsApi {
+export default class TranslationsApi {
   constructor(apiUrl, apiToken, logger) {
     this.apiUrl = apiUrl;
     this.apiToken = apiToken;
