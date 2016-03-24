@@ -50,6 +50,7 @@ Run from your project root in order to import the translations into the matching
 $ translations import
     -t, --token [value]    apiToken authentication token
     --api-url [value]      api url e.g. 'http://server/api'
+    --seperate-categories  seperate translations in categories
     --destination [value]  translations destionation path
     --clean                clean import, delete all translations before writing new
     --verbose              get more detailed information on what is happening
@@ -70,6 +71,7 @@ gulp.task('translations:import', function(cb) {
     {
       clean: true,
       verbose: true,
+      seperateTranslations: true,
     }
   );
 });
