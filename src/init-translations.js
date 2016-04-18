@@ -134,5 +134,7 @@ function fillSample(sample, config) {
 
 function prettifyJSON(obj) {
   // TODO: read .editorconfig inside the project for indenting preference
-  return JSON.stringify(obj, null, 2);
+  var string = JSON.stringify(obj, null, 2);
+  // append newline to the end
+  return string + '\n';
 }
