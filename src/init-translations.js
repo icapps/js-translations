@@ -7,6 +7,7 @@ import mkdirp from 'mkdirp';
 
 import Logger from './Logger';
 import sample from './translations.sample';
+import prettifyJSON from './utils/prettifyJSON';
 
 const DEFAULT_OPTIONS = {
   destination: './src/locales',
@@ -129,12 +130,4 @@ function fillSample(sample, config) {
     )
 
     return prettifyJSON(mergedSample);
-}
-
-
-function prettifyJSON(obj) {
-  // TODO: read .editorconfig inside the project for indenting preference
-  var string = JSON.stringify(obj, null, 2);
-  // append newline to the end
-  return string + '\n';
 }
