@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "babel src -d lib",
-    "build:dev": "npm run build -- --watch"
+    "build:dev": "npm run build -- --watch",
+    "postinstall": "npm run build"
   },
   "bin": {
     "translations": "./bin/translations"
