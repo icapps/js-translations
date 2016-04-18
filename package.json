@@ -1,6 +1,6 @@
 {
   "name": "icapps-translations",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "author": "Robin Houdmeyers <houdmeyers@gmail.com>",
   "license": "MIT",
@@ -10,7 +10,7 @@
   "scripts": {
     "build": "babel src -d lib",
     "build:dev": "npm run build -- --watch",
-    "postinstall": "npm run build"
+    "prepublish": "npm run build"
   },
   "bin": {
     "translations": "./bin/translations"
