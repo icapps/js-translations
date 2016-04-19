@@ -6,7 +6,7 @@ import path from 'path';
 
 import TranslationsApi from './translations-api';
 import prettifyJSON from './utils/prettifyJSON';
-import Logger from './Logger';
+import Logger from './logger';
 
 
 const DEFAULT_OPTIONS = {

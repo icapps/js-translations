@@ -5,7 +5,7 @@ import { defaults, pick, isUndefined } from 'lodash'
 import inquirer from 'inquirer';
 import mkdirp from 'mkdirp';
 
-import Logger from './Logger';
+import Logger from './logger';
 import sample from './translations.sample';
 import prettifyJSON from './utils/prettifyJSON';
 
