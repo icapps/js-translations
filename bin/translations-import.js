@@ -17,7 +17,7 @@ program
   .parse(process.argv);
 
 
-return importTranslations(
+importTranslations(
   program.apiUrl,
   program.token,
   {

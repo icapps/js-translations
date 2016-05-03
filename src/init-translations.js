@@ -1,40 +1,33 @@
-import _ from 'lodash';
+import _, { defaults, pick, isUndefined } from 'lodash';
 import fs from 'fs';
 import path from 'path';
-import { defaults, pick, isUndefined } from 'lodash'
 import inquirer from 'inquirer';
 import mkdirp from 'mkdirp';
 
-import Logger from './logger';
+import Logger from './classes/Logger';
 import sample from './translations.sample';
 import prettifyJSON from './utils/prettifyJSON';
 
 const DEFAULT_OPTIONS = {
   destination: './src/locales',
   clean: false,
-  verbose: false
+  verbose: false,
 };
 
 
-export default function initTranslations(customOptions = {}) {
-  const options = _.defaults(customOptions, DEFAULT_OPTIONS);
-  const logger  = new Logger(options.verbose);
+function fillSample(blueprint, config) {
+    const mergedSample = defaults(
+      pick(config, ['apiToken', 'translationsPath']),
+      blueprint
+    );
 
-  askConfigurationPath()
-  .then(function(configPath){
-    return createConfigurationFile(configPath);
-  })
-  .then(function(fullPath){
-    logger.log(`Created configation file: ${fullPath}`);
-    return checkGitignore();
-  });
+    return prettifyJSON(mergedSample);
 }
 
 
 function askConfigurationPath() {
   return new Promise((resolve, reject) => {
-
-    let questions = [
+    const questions = [
       {
         name: 'configPath',
         message: 'Where should the configuration go?',
@@ -45,31 +38,28 @@ function askConfigurationPath() {
         message: answers => `'${answers.configPath}' already exists. Shall we overwrite this?`,
         default: true,
         type: 'confirm',
-        when: answers => fs.existsSync(answers.configPath)
-      }
-    ]
+        when: answers => fs.existsSync(answers.configPath),
+      },
+    ];
 
-    inquirer.prompt(questions, function(answers) {
+    inquirer.prompt(questions, (answers) => {
       if (answers.overwriteConfig === true || isUndefined(answers.overwriteConfig)) {
         resolve(answers.configPath);
       } else {
         reject();
       }
     });
-
-  })
+  });
 }
 
 
 function createConfigurationFile(configurationPath) {
   return new Promise((resolve, reject) => {
-
     mkdirp(configurationPath, (err) => {
-      if (err) console.log(err)
-
+      if (err) reject(err);
     });
 
-    let questions = [
+    const questions = [
       {
         name: 'translationsPath',
         message: 'Where should the locales go? (e.g. nl-be.json)',
@@ -85,49 +75,49 @@ function createConfigurationFile(configurationPath) {
         name: 'apiToken',
         message: 'Please provide your API token for translations.icapps.be:',
         default: null,
-        when: answers => answers.hasApiToken
+        when: answers => answers.hasApiToken,
       },
-    ]
+    ];
 
-    inquirer.prompt(questions, function(answers) {
-      let fullPath = path.join(configurationPath, 'translations.json');
+    inquirer.prompt(questions, (answers) => {
+      const fullPath = path.join(configurationPath, 'translations.json');
 
-      fs.writeFile(fullPath, fillSample(sample, answers), function() {
-          resolve(fullPath);
-        }
-      );
+      fs.writeFile(fullPath, fillSample(sample, answers), () => resolve(fullPath));
     });
   });
 }
 
 
 function checkGitignore() {
-  return new Promise((resolve, reject) => {
-    let gitignore = fs.readFileSync('./.gitignore').toString(),
-        isPresent = /.+translations.json/g.test(gitignore);
+  return new Promise((resolve) => {
+    const gitignore = fs.readFileSync('./.gitignore').toString();
+    const isPresent = /.+translations.json/g.test(gitignore);
 
-    let questions = [{
+    const questions = [{
       name: 'addToGitignore',
-      message: '`translations.json` is not in the .gitignore file. This is recommended, shall we add it?',
+      message: `translations.json is not in the .gitignore file.
+                This is recommended, shall we add it?`,
       type: 'confirm',
-      when: () => !isPresent
+      when: () => !isPresent,
     }];
 
-    inquirer.prompt(questions, function(answers) {
+    inquirer.prompt(questions, (answers) => {
       if (answers.addToGitignore) {
-        fs.appendFile("./.gitignore", '/**/translations.json', resolve);
+        fs.appendFile('./.gitignore', '/**/translations.json', resolve);
       }
-    })
-
+    });
   });
 }
 
 
-function fillSample(sample, config) {
-    let mergedSample = defaults(
-      pick(config, ['apiToken', 'translationsPath']),
-      sample
-    )
+export default function initTranslations(customOptions = {}) {
+  const options = _.defaults(customOptions, DEFAULT_OPTIONS);
+  const logger = new Logger(options.verbose);
 
-    return prettifyJSON(mergedSample);
+  askConfigurationPath()
+  .then(configPath => createConfigurationFile(configPath))
+  .then((fullPath) => {
+    logger.log(`Created configation file: ${fullPath}`);
+    return checkGitignore();
+  });
 }

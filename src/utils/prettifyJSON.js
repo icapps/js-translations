@@ -1,6 +1,6 @@
 export default function prettifyJSON(obj) {
   // TODO: read .editorconfig inside the project for indenting preference
-  var string = JSON.stringify(obj, null, 4);
+  const string = JSON.stringify(obj, null, 4);
   // append newline to the end
-  return string + '\n';
+  return `${string} \n`;
 }

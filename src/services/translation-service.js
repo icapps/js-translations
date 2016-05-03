@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-export default class TranslationsApi {
+export default class TranslationsService {
   constructor(apiUrl, apiToken, logger) {
     this.apiUrl = apiUrl;
     this.apiToken = apiToken;
@@ -8,10 +8,9 @@ export default class TranslationsApi {
 
     this.defaultOptions = {
       headers: {
-        'Authorization': `Token token=${apiToken}`
-      }
+        Authorization: `Token token=${apiToken}`,
+      },
     };
-
   }
 
   /**
@@ -22,13 +21,11 @@ export default class TranslationsApi {
     // const dummy = [ { id: 14, short_name: 'fr-be' },{ id: 13, short_name: 'nl-be' } ];
     // return Promise.resolve(dummy);
 
-    let url = `${this.apiUrl}/languages.json`;
+    const url = `${this.apiUrl}/languages.json`;
     this.logger.log(`get languages from ${url}`);
 
     return fetch(url, this.defaultOptions)
-      .then((res) => {
-        return res.json();
-      })
+      .then((res) => res.json())
       .catch((err) => {
         this.logger.log('catch error', err);
       });
@@ -38,19 +35,15 @@ export default class TranslationsApi {
     // const dummy = '{"translations":[{"title_main":"Bonjour"}]}';
     // return Promise.resolve(dummy)
 
-    let url = `${this.apiUrl}/translations/${shortName}.json`;
+    const url = `${this.apiUrl}/translations/${shortName}.json`;
 
-    this.logger.log(`fetch translation from ${url}`)
+    this.logger.log(`fetch translation from ${url}`);
 
     return fetch(url, this.defaultOptions)
-    .then((result) => {
-      return result.json();
-    })
-    .then((body) => {
-      return {
-        name: shortName,
-        body: body
-      };
-    });
+    .then((result) => result.json())
+    .then((body) => ({
+      name: shortName,
+      body,
+    }));
   }
 }

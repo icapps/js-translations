@@ -1,0 +1,18 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "rules": {
+    "indent": ["off", 4, {"SwitchCase": 1, "VariableDeclarator": 1}],
+    "strict": ["error", "global"],
+    "semi": ["error", "always"],
+    "new-cap": ["error", {"capIsNew": false}],
+    "prefer-rest-params": ["off"],
+    "no-underscore-dangle": ["off"],
+    "import/no-unresolved": ["off"],
+    "no-console": ["error", { "allow": ["info", "warn", "error"]  }]
+  }
+}

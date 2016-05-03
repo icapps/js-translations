@@ -4,4 +4,4 @@ import initTranslations from './init-translations';
 module.exports = {
   import: importTranslations,
   init: initTranslations,
-}
+};
