@@ -1,7 +1,6 @@
 /node_modules
-
+/lib
 /src/locales
-
 .tmp
 .DS_Store
 /**/translations.json
