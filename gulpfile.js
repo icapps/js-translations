@@ -10,7 +10,8 @@ gulp.task('translations:import', () =>
     {
       clean: true,
       verbose: true,
-      seperateCategories: true,
+      seperateCategories: false,
+      exportType: 'plist',
     }
   )
 );

@@ -3,8 +3,8 @@ import del from 'del';
 import path from 'path';
 import mkdirp from 'mkdirp';
 import TranslationsSerivce from './../services/translation-service';
-import prettifyJSON from './../utils/prettifyJSON';
 import Logger from './Logger';
+import Parser from './Parser';
 
 
 const DEFAULT_OPTIONS = {
@@ -12,6 +12,7 @@ const DEFAULT_OPTIONS = {
   clean: false,
   verbose: false,
   seperateCategories: false,
+  exportType: 'json',
 };
 
 
@@ -22,6 +23,8 @@ export default class Importer {
 
   constructor(apiUrl, apiToken, options) {
     this.logger = new Logger(options.verbose);
+    this.parser = new Parser(options.exportType);
+
     this.apiUrl = apiUrl;
     this.apiToken = apiToken;
     this.options = Object.assign({}, DEFAULT_OPTIONS, this.getProjectTypeOptions(), options);
@@ -74,8 +77,8 @@ export default class Importer {
   }
 
   saveTranslation(translation) {
-    const fileName = path.join(this.options.destination, `${translation.name}.json`);
-    const fileContents = prettifyJSON(translation.body.translations);
+    const fileName = path.join(this.options.destination, `${ translation.name }.${ this.options.exportType }`);
+    const fileContents = this.parser.parse(translation.body.translations);
 
     fs.writeFile(fileName, fileContents, (err) => {
       if (err) console.error(err);
@@ -101,8 +104,8 @@ export default class Importer {
       const categoryPath = path.join(this.options.destination, category);
 
       mkdirp(categoryPath, () => {
-        const fileName = path.join(this.options.destination, category, `${translation.name}.json`);
-        const fileContents = prettifyJSON(translation.body.translations[category]);
+        const fileName = path.join(this.options.destination, category, `${ translation.name }.${ this.options.exportType }`);
+        const fileContents = this.parser.parse(translation.body.translations[category]);
 
         fs.writeFile(fileName, fileContents, (err) => {
           if (err) console.error(err);
