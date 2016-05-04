@@ -40,6 +40,13 @@ Run from your project root in order to setup the translations configuration.
 
 ```bash
 $ translations init
+
+  Usage: translations-init [options]
+
+  Options:
+
+    -h, --help           output usage information
+    -V, --version        output the version number
     --token [value]      Add apiToken
     --translations-path  Add translations path
     --verbose            get more detailed information on what is happening
@@ -48,12 +55,18 @@ Run from your project root in order to import the translations into the matching
 
 ```bash
 $ translations import
+
+  Usage: translations-import [options]
+
+  Options:
+
     -t, --token [value]    apiToken authentication token
     --api-url [value]      api url e.g. 'http://server/api'
     --seperate-categories  seperate translations in categories
     --destination [value]  translations destionation path
     --clean                clean import, delete all translations before writing new
     --verbose              get more detailed information on what is happening
+    --export-type [value]  define export type. Options: (json, plist). Default: json
 ```
 
 ## Gulp
