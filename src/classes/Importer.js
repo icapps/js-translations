@@ -2,6 +2,7 @@ import fs from 'fs';
 import del from 'del';
 import path from 'path';
 import mkdirp from 'mkdirp';
+import _ from 'lodash';
 import TranslationsSerivce from './../services/translation-service';
 import Logger from './Logger';
 import Parser from './Parser';
@@ -27,7 +28,7 @@ export default class Importer {
 
     this.apiUrl = apiUrl;
     this.apiToken = apiToken;
-    this.options = Object.assign({}, DEFAULT_OPTIONS, this.getProjectTypeOptions(), options);
+    this.options = _.merge({}, DEFAULT_OPTIONS, this.getProjectTypeOptions(), options);
 
     this.api = new TranslationsSerivce(
       apiUrl,
