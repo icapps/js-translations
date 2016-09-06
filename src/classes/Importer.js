@@ -23,17 +23,17 @@ export default class Importer {
   static isAndroid() { return fs.existsSync('**/*.gradle'); }
 
   constructor(apiUrl, apiToken, options) {
-    this.logger = new Logger(options.verbose);
-    this.parser = new Parser(options.exportType);
-
     this.apiUrl = apiUrl;
     this.apiToken = apiToken;
     this.options = _.merge({}, DEFAULT_OPTIONS, this.getProjectTypeOptions(), options);
 
+    this.logger = new Logger(this.options.verbose);
+    this.parser = new Parser(this.options.exportType);
+
     this.api = new TranslationsSerivce(
       apiUrl,
       apiToken,
-      new Logger(options.verbose)
+      new Logger(this.options.verbose)
     );
   }
 
@@ -124,10 +124,10 @@ export default class Importer {
   */
   getProjectTypeOptions() {
     if (Importer.isXcode()) {
-      this.log('Xcode project');
+      // this.log('Xcode project');
     } else {
       // use default destination
-      this.log('No XCode project');
+      // this.log('No XCode project');
     }
   }
 }
