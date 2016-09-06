@@ -6,7 +6,7 @@ export default class Parser {
   }
 
   parse(obj) {
-    if (this.type === 'json ') {
+    if (this.type === 'json') {
       return this.parseJSON(obj);
     } else if (this.type === 'plist') {
       return this.parsePlist(obj);
