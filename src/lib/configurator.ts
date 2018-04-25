@@ -1,31 +1,30 @@
-import _, { defaults, pick, isUndefined } from 'lodash';
-import fs from 'fs';
-import path from 'path';
-import inquirer from 'inquirer';
-import mkdirp from 'mkdirp';
-
-import Logger from './classes/Logger';
-import sample from './translations.sample';
-import prettifyJSON from './utils/prettifyJSON';
-
-const DEFAULT_OPTIONS = {
-  destination: './src/locales',
-  clean: false,
-  verbose: false,
-};
+import { defaults, pick, isUndefined } from 'lodash';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as inquirer from 'inquirer';
+import * as mkdirp from 'mkdirp';
+import { logger } from '../lib/logger';
+import { SAMPLE as sample } from '../config/defaults.config';
+import { parseJSON } from '../lib/parser';
 
 
+/**
+ * // TODO: Rename sample?
+ */
 function fillSample(blueprint, config) {
-    const mergedSample = defaults(
-      pick(config, ['apiToken', 'translationsPath']),
-      blueprint
-    );
+  const mergedSample = defaults(
+    pick(config, ['apiToken', 'translationsPath']),
+    blueprint,
+  );
 
-    return prettifyJSON(mergedSample);
+  return parseJSON(mergedSample);
 }
 
 
-function askConfigurationPath() {
+/**
+ * Ask where the configuration should be stored
+ */
+function getConfigPath(): Promise<string> {
   return new Promise((resolve, reject) => {
     const questions = [
       {
@@ -53,7 +52,10 @@ function askConfigurationPath() {
 }
 
 
-function createConfigurationFile(configurationPath) {
+/**
+ * Create a new configuration file
+ */
+function createConfigFile(configurationPath: string): Promise<string> {
   return new Promise((resolve, reject) => {
     mkdirp(configurationPath, (err) => {
       if (err) reject(err);
@@ -81,14 +83,16 @@ function createConfigurationFile(configurationPath) {
 
     inquirer.prompt(questions, (answers) => {
       const fullPath = path.join(configurationPath, 'translations.json');
-
       fs.writeFile(fullPath, fillSample(sample, answers), () => resolve(fullPath));
     });
   });
 }
 
 
-function checkGitignore() {
+/**
+ * Check whether .gitignore file is present and add translations.json file to it
+ */
+function checkGitignore(): Promise<void> {
   return new Promise((resolve) => {
     const gitignore = fs.readFileSync('./.gitignore').toString();
     const isPresent = /.+translations.json/g.test(gitignore);
@@ -103,21 +107,25 @@ function checkGitignore() {
 
     inquirer.prompt(questions, (answers) => {
       if (answers.addToGitignore) {
-        fs.appendFile('./.gitignore', '/**/translations.json', resolve);
+        fs.appendFile('./.gitignore', '/**/translations.json', () => resolve());
       }
     });
   });
 }
 
 
-export default function initTranslations(customOptions = {}) {
-  const options = _.defaults(customOptions, DEFAULT_OPTIONS);
-  const logger = new Logger(options.verbose);
+/**
+ * Create a new translation project
+ */
+export async function initTranslations() {
+  try {
+    const configPath = await getConfigPath();
+    const fullPath = await createConfigFile(configPath);
+    logger.info(`Created configation file: ${fullPath}`);
 
-  askConfigurationPath()
-  .then(configPath => createConfigurationFile(configPath))
-  .then((fullPath) => {
-    logger.log(`Created configation file: ${fullPath}`);
-    return checkGitignore();
-  });
+    return await checkGitignore();
+  } catch (error) {
+    logger.error(`Error: ${error}`);
+    // TODO: Throw error?
+  }
 }

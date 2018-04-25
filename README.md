@@ -1,8 +1,6 @@
 # Translations global npm package / .bin
 
-
 ## Installation
-
 
 or add it to your project:
 
@@ -14,15 +12,28 @@ $ npm install -g icapps-translations
 $ npm install --save-dev icapps-translations
 ```
 
-
-## CLI
-Install globally:
+## NodeJS
 
 ```javascript
-$ npm install -g icapps-translations
+const translations = require('icapps-translations');
+
+translations.import(apiUrl, apiToken, {
+  destination: __dirname + '/locales',  // Optional (defaults to ./src/locales)
+  clean: false,                         // Optional (defaults to true)
+  exportType: 'json' | 'plist',         // Defaults to json
+  seperateCategories : true,            // Optional (defaults to false)
+});
 ```
 
-Now `translations` is availlable a command. For instructions run:
+## CLI
+
+Install globally:
+
+```bash
+npm install -g icapps-translations
+```
+
+Now `translations` is available as a command. For instructions run:
 
 ```bash
 $ translations help
@@ -49,8 +60,9 @@ $ translations init
     -V, --version        output the version number
     --token [value]      Add apiToken
     --translations-path  Add translations path
-    --verbose            get more detailed information on what is happening
+    --verbose            get more detailed information on what is happening 
 ```
+
 Run from your project root in order to import the translations into the matching .json files.
 
 ```bash
@@ -100,7 +112,6 @@ gulp.task('translations:list', ['translations:import'], function(cb) {
 
 ```
 
-
 ## Build the module
 
 ```bash
@@ -109,3 +120,19 @@ $ npm run build
 // build and keep watching
 $ npm run build:dev
 ```
+
+## Bugs
+
+When you find issues, please report them:
+
+- web: [https://github.com/icapps/js-translations/issues](https://github.com/icapps/js-translations/issues)
+
+Be sure to include all of the output from the npm command that didn't work as expected. The npm-debug.log file is also helpful to provide.
+
+## Authors
+
+See the list of [contributors](https://github.com/icapps/js-translations/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the ISC License - see the [LICENSE.md](LICENSE.md) file for details

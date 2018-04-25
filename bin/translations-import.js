@@ -8,7 +8,7 @@ const OPTIONS = {
 };
 
 const DEFAULTS = {
-  apiUrl: 'http://translations.icapps.com/api',
+  apiUrl: 'https://translations.icapps.com/api',
   exportType: 'json',
 };
 

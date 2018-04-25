@@ -18,7 +18,7 @@ gulp.task('translations:import', () =>
 
 
 // List translation files, this task dependends on the import task.
-//   If we run this task, the async'ness can be tested.
+// If we run this task, the async'ness can be tested.
 gulp.task('translations:list', ['translations:import'], (callback) => {
   exec('ls ./src/locales', (error, stdout) => {
     console.info('stdout: ', stdout);
