@@ -4,14 +4,16 @@ Import translations from iCapps translation service
 
 ## Installation
 
-or add it to your project:
+Install via npm
 
-```javascript
-// install globally
-npm install -g tree-house-translations
-
-// add it to your project
+```shell
 npm install tree-house-translations
+```
+
+or via yarn
+
+```shell
+yarn add tree-house-translations
 ```
 
 ## NodeJS
@@ -127,13 +129,13 @@ $ npm run build:dev
 
 When you find issues, please report them:
 
-- web: [https://github.com/icapps/js-translations/issues](https://github.com/icapps/js-translations/issues)
+- web: [https://github.com/icapps/tree-house-translations/issues](https://github.com/icapps/tree-house-translations/issues)
 
 Be sure to include all of the output from the npm command that didn't work as expected. The npm-debug.log file is also helpful to provide.
 
 ## Authors
 
-See the list of [contributors](https://github.com/icapps/js-translations/contributors) who participated in this project.
+See the list of [contributors](https://github.com/icapps/tree-house-translations/contributors) who participated in this project.
 
 ## License
 

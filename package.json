@@ -52,11 +52,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/icapps/js-translations.git"
+    "url": "git+https://github.com/icapps/tree-house-translations.git"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/icapps/js-translations/issues"
+    "url": "https://github.com/icapps/tree-house-translations/issues"
   },
-  "homepage": "https://github.com/icapps/js-translations#readme"
+  "homepage": "https://github.com/icapps/tree-house-translations#readme"
 }
