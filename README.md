@@ -1,6 +1,6 @@
 # Treehouse translations
 
-Import translations from iCapps translation service
+Import translations from icapps translation service
 
 [![npm version](https://badge.fury.io/js/tree-house-translations.svg)](https://badge.fury.io/js/tree-house-translations)
 [![Dependencies](https://david-dm.org/icapps/tree-house-translations.svg)](https://david-dm.org/icapps/tree-house-translations.svg)
@@ -88,37 +88,6 @@ $ translations import
     --clean                clean import, delete all translations before writing new
     --verbose              get more detailed information on what is happening
     --export-type [value]  define export type. Options: (json, plist). Default: json
-```
-
-## Gulp
-
-```javascript
-var gulp               = require('gulp');
-var importTranslations = require('./lib').import;
-var exec               = require('child_process').exec;
-
-// Import translations
-gulp.task('translations:import', function(cb) {
-  return importTranslations(
-    'http://api-url.dev',
-    'XXXXXXXXXXXXXXXXXXXXXX',
-    {
-      clean: true,
-      verbose: true,
-      seperateTranslations: true,
-    }
-  );
-});
-
-
-// List translation files, this task dependends on the import task.
-//   If we run this task, the async'ness can be tested.
-gulp.task('translations:list', ['translations:import'], function(cb) {
-  exec('ls ./src/locales', function(error, stdout, stderr) {
-    console.log('stdout: ', stdout);
-  });
-});
-
 ```
 
 ## Build the module

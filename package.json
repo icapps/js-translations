@@ -25,7 +25,6 @@
   "dependencies": {
     "commander": "~2.15.1",
     "del": "~3.0.0",
-    "gulp": "~3.9.0",
     "inquirer": "~5.2.0",
     "lodash": "~4.17.10",
     "mkdirp": "~0.5.1",
