@@ -8,16 +8,16 @@ or add it to your project:
 
 ```javascript
 // install globally
-npm install -g icapps-translations
+npm install -g tree-house-translations
 
 // add it to your project
-npm install icapps-translations
+npm install tree-house-translations
 ```
 
 ## NodeJS
 
 ```javascript
-const translations = require('icapps-translations');
+const translations = require('tree-house-translations');
 
 translations.import(apiUrl, apiToken, {
   destination: __dirname + '/locales',  // Optional (defaults to ./src/locales)
@@ -32,7 +32,7 @@ translations.import(apiUrl, apiToken, {
 Install globally:
 
 ```bash
-npm install -g icapps-translations
+npm install -g tree-house-translations
 ```
 
 Now `translations` is available as a command. For instructions run:
