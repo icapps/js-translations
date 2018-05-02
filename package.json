@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Import translations from iCapps translation service",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "clean": "rm -rf ./lib/*",
     "build": "yarn clean && tsc",
