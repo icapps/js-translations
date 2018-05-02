@@ -1,4 +1,6 @@
-# Translations global npm package / .bin
+# Treehouse translations
+
+Import translations from iCapps translation service
 
 ## Installation
 
@@ -6,10 +8,10 @@ or add it to your project:
 
 ```javascript
 // install globally
-$ npm install -g icapps-translations
+npm install -g icapps-translations
 
 // add it to your project
-$ npm install --save-dev icapps-translations
+npm install icapps-translations
 ```
 
 ## NodeJS
