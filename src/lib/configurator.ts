@@ -7,7 +7,6 @@ import { logger } from '../lib/logger';
 import { SAMPLE as sample } from '../config/defaults.config';
 import { parseJSON } from '../lib/parser';
 
-
 /**
  * // TODO: Rename sample?
  */
@@ -19,7 +18,6 @@ function fillSample(blueprint, config) {
 
   return parseJSON(mergedSample);
 }
-
 
 /**
  * Ask where the configuration should be stored
@@ -50,7 +48,6 @@ function getConfigPath(): Promise<string> {
     });
   });
 }
-
 
 /**
  * Create a new configuration file
@@ -88,7 +85,6 @@ function createConfigFile(configurationPath: string): Promise<string> {
   });
 }
 
-
 /**
  * Check whether .gitignore file is present and add translations.json file to it
  */
@@ -112,7 +108,6 @@ function checkGitignore(): Promise<void> {
     });
   });
 }
-
 
 /**
  * Create a new translation project

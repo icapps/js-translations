@@ -8,7 +8,6 @@ export function getAuthHeaders(apiToken: string): { Authorization: string } {
   return { Authorization: `Token token=${apiToken}` };
 }
 
-
 /**
  * Get all available languages
  */
@@ -25,7 +24,6 @@ export async function getLanguages(apiUrl: string, apiToken: string): Promise<La
     logger.error(`Error: ${error}`);
   }
 }
-
 
 /**
  * Get a translation via their shortname
@@ -46,7 +44,6 @@ export async function getTranslation(apiUrl: string, apiToken: string, shortName
     logger.error(`Error: ${error}`);
   }
 }
-
 
 // Interfaces
 export interface Language {

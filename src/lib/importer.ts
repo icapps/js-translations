@@ -7,7 +7,6 @@ import { Translation, getLanguages, getTranslation } from '../services/translati
 import { logger } from './logger';
 import { DEFAULT_OPTIONS } from '../config/defaults.config';
 
-
 /**
  * Save a specific translation
  */
@@ -16,7 +15,6 @@ function saveTranslation(translation: Translation, options: Options) {
   const fileContents = parser.parse(options.exportType, translation.body.translations || {});
   return fs.writeFileSync(fileName, fileContents);
 }
-
 
 /**
  * Save all translations in a folder per category
@@ -34,7 +32,6 @@ async function saveTranslationsPerCategory(translation: Translation, options: Op
   }
 }
 
-
 /**
  * Save all translations
  */
@@ -47,7 +44,6 @@ async function saveTranslations(translationsResponse: Translation[], options: Op
     }
   }
 }
-
 
 /**
  * Start the complete import of translations
@@ -81,7 +77,6 @@ export async function startImport(apiUrl: string, apiToken: string, options: Opt
     // TODO: Throw error?
   }
 }
-
 
 // Interfaces
 export interface Options {

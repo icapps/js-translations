@@ -1,6 +1,5 @@
 import * as plist from 'plist';
 
-
 /**
  * Parse json or plist into specific format
  */
@@ -16,7 +15,6 @@ export function parse(type: 'json' | 'plist', obj: any) {
   throw new Error('Not supported type.');
 }
 
-
 /**
  * Parse json into stringified data
  */
@@ -24,7 +22,6 @@ export function parseJSON(obj: any) {
   // TODO: read .editorconfig inside the project for indenting preference
   return `${JSON.stringify(obj, null, 4)} \n`;
 }
-
 
 /**
  * Parse json into plist xml

@@ -9,15 +9,12 @@ export function createDestination(dest: string) {
   return mkdirp.sync(dest);
 }
 
-
 /**
  * Clean the previously stored destination folder
  */
 export function cleanDestination(dest: string) {
   return del(path.join(dest, '*'));
 }
-
-
 
 /**
  * Create a folder with recursion
