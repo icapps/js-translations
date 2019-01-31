@@ -1,10 +1,8 @@
-import * as parser from '../../src/lib/parser';
 import * as translationService from '../../src/services/translation.service';
 import * as utils from '../../src/lib/utils';
 import * as rimraf from 'rimraf';
 import { startImport } from '../../src/lib/importer';
 import { logger } from '../../src/lib/logger';
-import { rmdirSync } from 'fs';
 
 describe('lib/importer', () => {
   const languages: translationService.Language[] = [{
@@ -35,14 +33,14 @@ describe('lib/importer', () => {
 
     afterEach(() => {
       jest.clearAllMocks();
-      rimraf('./locales', () => {});
+      rimraf('./locales', () => { });
     });
 
     it('Should successfully import translations with all defaults', async () => {
       const languageSpy = jest.spyOn(translationService, 'getLanguages').mockImplementation(() => languages);
       const translationSpy = jest.spyOn(translationService, 'getTranslation').mockImplementation(() => translation);
       const cleanSpy = jest.spyOn(utils, 'cleanDestination');
-      const result = await startImport('/', 'myToken', { exportType: 'json', destination: './locales' });
+      await startImport('/', 'myToken', { exportType: 'json', destination: './locales' });
 
       expect(cleanSpy).not.toHaveBeenCalled();
       expect(languageSpy).toHaveBeenCalledTimes(1);
@@ -56,7 +54,7 @@ describe('lib/importer', () => {
       const translationSpy = jest.spyOn(translationService, 'getTranslation').mockImplementation(() => translation);
       const cleanSpy = jest.spyOn(utils, 'cleanDestination');
 
-      const result = await startImport('/', 'myToken', { exportType: 'json', destination: './locales', clean: true });
+      await startImport('/', 'myToken', { exportType: 'json', destination: './locales', clean: true });
 
       expect(cleanSpy).toHaveBeenCalledTimes(1);
       expect(languageSpy).toHaveBeenCalledTimes(1);
@@ -71,7 +69,7 @@ describe('lib/importer', () => {
       const translationSpy = jest.spyOn(translationService, 'getTranslation').mockImplementation(() => translation);
       const cleanSpy = jest.spyOn(utils, 'cleanDestination');
 
-      const result = await startImport('/', 'myToken', { exportType: 'json', destination: './locales', clean: true, seperateCategories: true });
+      await startImport('/', 'myToken', { exportType: 'json', destination: './locales', clean: true, seperateCategories: true });
 
       expect(cleanSpy).toHaveBeenCalledTimes(1);
       expect(languageSpy).toHaveBeenCalledTimes(1);
@@ -83,7 +81,7 @@ describe('lib/importer', () => {
     it('Should throw an error when no languages are found', async () => {
       const languageSpy = jest.spyOn(translationService, 'getLanguages').mockImplementation(() => null);
       const translationSpy = jest.spyOn(translationService, 'getTranslation').mockImplementation(() => translation);
-      const result = await startImport('/', 'myToken', { exportType: 'json', destination: './locales' });
+      await startImport('/', 'myToken', { exportType: 'json', destination: './locales' });
 
       expect(languageSpy).toHaveBeenCalledTimes(1);
       expect(logErrorSpy).toHaveBeenCalledTimes(1);

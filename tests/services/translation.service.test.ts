@@ -12,11 +12,10 @@ describe('translationService', () => {
     },
   };
 
-  let logInfoSpy;
   let logErrorSpy;
 
   beforeAll(() => {
-    logInfoSpy = jest.spyOn(logger, 'info').mockImplementation(() => { });
+    jest.spyOn(logger, 'info').mockImplementation(() => { });
     logErrorSpy = jest.spyOn(logger, 'error').mockImplementation(() => { });
   });
 
@@ -47,7 +46,7 @@ describe('translationService', () => {
         .get('/languages.json')
         .reply(404);
 
-      const result = await getLanguages(apiUrl, apiToken);
+      await getLanguages(apiUrl, apiToken);
       expect(logErrorSpy).toHaveBeenCalledTimes(1);
     });
   });
@@ -62,16 +61,13 @@ describe('translationService', () => {
       expect(result).toEqual({ name: 'test', body: { NL: 'test' } });
     });
 
-
     it('Should throw an error when route was not found', async () => {
       nock(apiUrl, headers)
         .get('/translations/test.json')
         .reply(404);
 
-      const result = await getTranslation(apiUrl, apiToken, 'test');
+      await getTranslation(apiUrl, apiToken, 'test');
       expect(logErrorSpy).toHaveBeenCalledTimes(1);
     });
   });
 });
-
-

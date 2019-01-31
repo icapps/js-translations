@@ -27,12 +27,12 @@ describe('lib/parser', () => {
         },
       ];
 
-      const result = parser.parse('plist', json);
+      parser.parse('plist', json);
       // FIXME: Spy - Check if has been called
     });
 
     it('Should throw an error when plist is invalid', () => {
-      const result = parser.parse('plist', 'noJson1');
+      parser.parse('plist', 'noJson1');
       // FIXME: Spy - Check if has been called
     });
 
