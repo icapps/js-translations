@@ -5,7 +5,7 @@ Import translations from icapps translation service
 [![npm version](https://badge.fury.io/js/tree-house-translations.svg)](https://badge.fury.io/js/tree-house-translations)
 [![Dependencies](https://david-dm.org/icapps/tree-house-translations.svg)](https://david-dm.org/icapps/tree-house-translations.svg)
 [![Build Status](https://travis-ci.org/icapps/tree-house-translations.svg?branch=master)](https://travis-ci.org/icapps/tree-house-translations)
-[![Coverage Status](https://coveralls.io/repos/github/icapps/tree-house-translations/badge.svg)](https://coveralls.io/github/icapps/tree-house-translations)
+[![Coverage Status](https://coveralls.io/repos/github/icapps/tree-house-translations/badge.svg)](https://coveralls.io/github/icapps/tree-house-translations) [![Greenkeeper badge](https://badges.greenkeeper.io/icapps/tree-house-translations.svg)](https://greenkeeper.io/)
 
 ## Installation
 
