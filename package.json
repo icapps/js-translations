@@ -22,7 +22,7 @@
     "lint"
   ],
   "dependencies": {
-    "commander": "~2.19.0",
+    "commander": "~2.20.0",
     "del": "~3.0.0",
     "inquirer": "~6.2.2",
     "lodash": "~4.17.11",
