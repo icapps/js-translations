@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as _ from 'lodash';
 import * as parser from './parser';
-import { cleanDestination, createDestination, createRecursive } from './utils';
+import { createRecursive, cleanDestination, createDestination } from './utils';
 import { Translation, getLanguages, getTranslation } from '../services/translation.service';
 import { logger } from './logger';
 import { DEFAULT_OPTIONS } from '../config/defaults.config';
@@ -54,7 +54,7 @@ export async function startImport(apiUrl: string, apiToken: string, options: Opt
 
     // Some cleaning and creating of destination folders
     createDestination(allOptions.destination);
-    if (allOptions.clean) cleanDestination(allOptions.destination);
+    if (allOptions.clean) await cleanDestination(allOptions.destination);
 
     // Get all languages
     const languages = await getLanguages(apiUrl, apiToken);
