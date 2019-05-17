@@ -1,7 +1,7 @@
 {
   "name": "tree-house-translations",
   "version": "1.1.4",
-  "description": "Import translations from iCapps translation service",
+  "description": "Import and use translations from icapps translation service",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -30,22 +30,23 @@
     "inquirer": "~6.3.1",
     "lodash": "~4.17.11",
     "mkdirp": "~0.5.1",
-    "node-fetch": "~2.4.0",
+    "node-fetch": "~2.6.0",
     "plist": "~3.0.1"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.11",
+    "@types/jest": "^24.0.13",
+    "@types/lodash": "~4.14.129",
     "@types/mkdirp": "~0.5.2",
-    "@types/nock": "^10.0.0",
+    "@types/nock": "^10.0.3",
     "coveralls": "^3.0.3",
-    "jest": "^24.7.1",
+    "jest": "^24.8.0",
     "nock": "^10.0.6",
-    "np": "^5.0.0",
+    "np": "^5.0.1",
     "rimraf": "^2.6.3",
-    "ts-jest": "^24.0.1",
-    "tslint": "^5.15.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.4.1"
+    "typescript": "^3.4.5"
   },
   "engines": {
     "node": ">=6"

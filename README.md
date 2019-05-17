@@ -1,6 +1,6 @@
 # Treehouse translations
 
-Import translations from icapps translation service
+Import and use translations from icapps translation service
 
 [![npm version](https://badge.fury.io/js/tree-house-translations.svg)](https://badge.fury.io/js/tree-house-translations)
 [![Dependencies](https://david-dm.org/icapps/tree-house-translations.svg)](https://david-dm.org/icapps/tree-house-translations.svg)
@@ -33,6 +33,36 @@ translations.import(apiUrl, apiToken, {
   seperateCategories : true,            // Optional (defaults to false)
 });
 ```
+
+### initTranslator
+
+Initialise a translator object pointing to the `.json` files where are translations are being stored and set a default locale. This object contains all functions which you can use after initialisation.
+
+This becomes a singleton instance which will cache your translations globally. **It is not possible at the moment to store translations into different folders.**
+
+```javascript
+  const translator = initTranslator('/locales', 'en');
+  translator.translate(...);
+```
+
+> The name of the translation file needs to match the language name.
+> For example: /locales/en.json -> en
+
+### .translate
+
+After initialising the translator you can easily find a translation value by its key for the required language in your localisation files.
+
+```javascript
+translator.translate('key_to_translate', 'nl');
+```
+
+You can also replace values by using `{{}}` in your string values in the translation files.
+
+```javascript
+translator.translate('key_to_translate', 'en', { name: 'Brent' });
+```
+
+> This is my new sentence from {{name}} -> This is my new sentence from Brent
 
 ## CLI
 
