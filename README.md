@@ -41,8 +41,10 @@ Initialise a translator object pointing to the `.json` files where are translati
 This becomes a singleton instance which will cache your translations globally. **It is not possible at the moment to store translations into different folders.**
 
 ```javascript
-  const translator = initTranslator('/locales', 'en');
-  translator.translate(...);
+import { initTranslator } from 'tree-house-translations';
+
+const translator = initTranslator('/locales', 'en');
+translator.translate(...);
 ```
 
 > The name of the translation file needs to match the language name.
