@@ -28,25 +28,25 @@
     "commander": "~2.20.0",
     "del": "~4.1.0",
     "inquirer": "~6.3.1",
-    "lodash": "~4.17.11",
+    "lodash": "~4.17.15",
     "mkdirp": "~0.5.1",
     "node-fetch": "~2.6.0",
     "plist": "~3.0.1"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.14",
+    "@types/jest": "~24.0.14",
     "@types/lodash": "~4.14.134",
     "@types/mkdirp": "~0.5.2",
-    "@types/nock": "^10.0.3",
-    "coveralls": "^3.0.4",
-    "jest": "^24.8.0",
-    "nock": "^10.0.6",
-    "np": "^5.0.3",
-    "rimraf": "^2.6.3",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.17.0",
-    "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.5.2"
+    "@types/nock": "~10.0.3",
+    "coveralls": "~3.0.4",
+    "jest": "~24.9.0",
+    "nock": "~10.0.6",
+    "np": "~5.0.3",
+    "rimraf": "~3.0.0",
+    "ts-jest": "~24.0.2",
+    "tslint": "~5.19.0",
+    "tslint-config-airbnb": "~5.11.1",
+    "typescript": "~3.6.2"
   },
   "engines": {
     "node": ">=6"

@@ -12,7 +12,7 @@ describe('lib/utils', () => {
       try {
         await createRecursive('/testFolder/me');
       } catch (error) {
-        expect(error.message).toEqual(`EACCES: permission denied, mkdir '/testFolder'`);
+        expect(error.message).toEqual("EACCES: permission denied, mkdir '/testFolder'");
       }
     });
   });
