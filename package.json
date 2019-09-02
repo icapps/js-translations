@@ -1,6 +1,6 @@
 {
   "name": "tree-house-translations",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Import and use translations from icapps translation service",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
